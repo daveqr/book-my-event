@@ -158,8 +158,8 @@ pickle-email-*.html
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
-!backend/log/.keep
-!backend/tmp/.keep
+!/log/.keep
+!/tmp/.keep
 
 # TODO Comment out this rule if you are OK with secrets being uploaded to the repo
 config/initializers/secret_token.rb
@@ -294,10 +294,6 @@ build-iPhoneSimulator/
 /log/*
 /tmp/*
 !/log/.keep
-!/tmp/.keep
-backend/log/*
-backend/tmp/*
-!backend/log/.keep
 !/tmp/.keep
 
 # Ignore uploaded files in development
