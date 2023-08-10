@@ -8,8 +8,16 @@ services:
       - "3000:3000"
     volumes:
       - ./backend:/app
-  #   depends_on:
-  #     - db
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - web
   # db:
   #   image: postgres:13
   #   environment:
