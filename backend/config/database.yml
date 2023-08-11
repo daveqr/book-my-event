@@ -3,20 +3,22 @@ default: &default
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   host: db
-  username: book_my_event
-  password: password
+  username: book
+  password: book
 
 development:
   <<: *default
+  host: localhost
   database: book_my_event
 
 test:
   <<: *default
+  host: localhost
   database: book_my_event_test
 
 production:
   <<: *default
   database: book_my_event
-  username: book_my_event
-  password: password
+  username: book
+  password: book
 
