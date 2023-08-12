@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import '../App.css';
 import '../style.css'
+import '../App.css';
 
 function Home() {
   return (

@@ -5,7 +5,9 @@ import '../App.css';
 import '../style.css'
 
 function EventsPage() {
-  const [activeMenuItem] = useState('events');
+  const [activeMenuItem,] = useState('events');
+
+
 
   const renderContent = () => {
     switch (activeMenuItem) {
