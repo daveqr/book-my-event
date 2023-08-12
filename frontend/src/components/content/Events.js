@@ -1,19 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Events = () => {
+function Events() {
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    // Fetch data from the API endpoint
+    fetch('http://localhost:3000/events')
+      .then(response => response.json())
+      .then(data => {
+        setEvents(data);
+      })
+      .catch(error => {
+        console.error('Error fetching events:', error);
+      });
+  }, []);
+
   return (
-    <div className="container-fluid">
-      <h1 className="mt-4">Events Sidebar</h1>
-      <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
-      <p>
-        Make sure to keep all page content within the
-        <code>#page-content-wrapper</code>
-        . The top navbar is optional, and just for demonstration. Just create an element with the
-        <code>#sidebarToggle</code>
-        ID which will toggle the menu when clicked.
-      </p>
+    <div>
+      <h1>Event List</h1>
+      <ul>
+        {events.map(event => (
+          <li key={event.id}>
+            <p>Name: {event.name}</p>
+            <p>Date: {event.date}</p>
+            <p>Location: {event.location}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
-};
+}
 
 export default Events;
