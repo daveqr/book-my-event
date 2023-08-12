@@ -3,8 +3,17 @@ import React, { useState, useEffect } from 'react';
 function Events() {
   const [events, setEvents] = useState([]);
 
+  const formatDateTime = (dateTime) => {
+    return new Date(dateTime).toLocaleString(undefined, {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  };
+
   useEffect(() => {
-    // Fetch data from the API endpoint
     fetch('http://localhost:3000/events')
       .then(response => response.json())
       .then(data => {
@@ -17,16 +26,28 @@ function Events() {
 
   return (
     <div>
-      <h1>Event List</h1>
-      <ul>
-        {events.map(event => (
-          <li key={event.id}>
-            <p>Name: {event.name}</p>
-            <p>Date: {event.date}</p>
-            <p>Location: {event.location}</p>
-          </li>
-        ))}
-      </ul>
+      {events ? (
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Location</th>
+            </tr>
+          </thead>
+          <tbody>
+            {events.map((event) => (
+              <tr key={event.id}>
+                <td>{event.name}</td>
+                <td>{formatDateTime(event.date)}</td>
+                <td>{event.location}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p>Loading events...</p>
+      )}
     </div>
   );
 }
