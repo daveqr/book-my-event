@@ -9,16 +9,16 @@ default: &default
 development:
   <<: *default
   host: localhost
-  database: book_my_event
+  database: book
 
 test:
   <<: *default
   host: localhost
-  database: book_my_event_test
+  database: book_test
 
 production:
   <<: *default
-  database: book_my_event
+  database: book
   username: book
   password: book
 

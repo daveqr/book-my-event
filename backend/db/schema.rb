@@ -13,9 +13,15 @@
 ActiveRecord::Schema[7.0].define(version: 2023_08_11_161505) do
   create_table "events", charset: "utf8mb3", force: :cascade do |t|
     t.string "name"
-    t.text "description"
-    t.datetime "date"
+    t.datetime "date", precision: nil
     t.string "location"
+    t.text "description"
+    t.string "city"
+    t.string "state"
+    t.integer "capacity"
+    t.decimal "price", precision: 10
+    t.string "category"
+    t.string "organizer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
