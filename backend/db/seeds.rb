@@ -9,9 +9,9 @@ cities = [
   city = cities.sample
 
   Event.create!(
-    name: Faker::Lorem.sentence(word_count: 3),
+    name: Faker::Movie.title,
     date: Faker::Time.between(from: DateTime.now, to: DateTime.now + 30),
-    location: Faker::Address.full_address,
+    location: Faker::Educator.university,
     description: Faker::Quote.famous_last_words,
     city: city[:name],
     state: city[:state], 
