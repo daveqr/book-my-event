@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom'; 
-import { useAuth } from '../AuthContextProvider'; 
 
 function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { setUser } = useAuth();
   
   const queryClient = useQueryClient();
   
@@ -31,8 +29,7 @@ function RegisterPage() {
   }, {
     onSuccess: (data) => {
       console.log('User registered:', data);
-      const { id, email, name } = data;
-      setUser({ id, email, name });
+      localStorage.setItem('user', JSON.stringify(data));
       
       queryClient.invalidateQueries('user');
       navigate('/register-success'); 

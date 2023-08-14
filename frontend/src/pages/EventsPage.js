@@ -7,8 +7,6 @@ import '../style.css'
 function EventsPage() {
   const [activeMenuItem,] = useState('events');
 
-
-
   const renderContent = () => {
     switch (activeMenuItem) {
       case 'events':

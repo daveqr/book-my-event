@@ -1,18 +1,14 @@
 import { Outlet } from "react-router-dom";
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import EventsSidebar from './EventsSidebar';
+import AppNavbar from '../components/AppNavbar';
 import '../App.css';
 import '../style.css'
 
 function Layout() {
 
-    const [activeMenuItem, setActiveMenuItem] = useState('activeMainMenuItem');
+    const [activeMenuItem] = useState('activeMainMenuItem');
 
-
-    const handleMenuItemClick = (menuItem) => {
-        setActiveMenuItem(menuItem);
-    };
 
     return (
         <div className="App">
@@ -21,31 +17,16 @@ function Layout() {
                 {/* Sidebar*/}
                 <div className="border-end bg-white" id="sidebar-wrapper">
                     <div className="sidebar-heading border-bottom bg-light">Event Booking Demo</div>
-
                     {activeMenuItem === 'events' && <EventsSidebar />}
-
                 </div>
 
                 {/* Page content wrapper*/}
                 <div id="page-content-wrapper">
 
                     {/* Top navigation*/}
-                    <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-                        <div className="container-fluid">
-
-                            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span className="navbar-toggler-icon"></span></button>
-                            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                                <ul className="navbar-nav ms-auto mt-2 mt-lg-0">
-                                    <li className="nav-item active"><Link to="/" className="nav-link" onClick={() => handleMenuItemClick('')}>Home</Link></li>
-                                    <li className="nav-item active"><Link to="/events" className="nav-link" onClick={() => handleMenuItemClick('events')}>Events</Link></li>
-                                    <li className="nav-item active"><Link to="/login" className="nav-link" onClick={() => handleMenuItemClick('login')}>Login</Link></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
+                    <AppNavbar />
 
                     <Outlet />
-
                 </div>
 
             </div>
@@ -55,6 +36,5 @@ function Layout() {
         </div>
     );
 }
-
 
 export default Layout;
