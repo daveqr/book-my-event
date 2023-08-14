@@ -6,7 +6,6 @@ function LoginPage() {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    // Send a POST request to the backend to validate the user's credentials
   };
 
   return (
