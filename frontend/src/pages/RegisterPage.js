@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom'; 
-import { useAuth } from '../AuthProvider'; 
+import { useAuth } from '../AuthContextProvider'; 
 
 function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [registrationSuccess, setRegistrationSuccess] = useState('');
-
+  const { setUser } = useAuth();
+  
   const queryClient = useQueryClient();
-  // const { user, isAuthenticated, login, logout, setUser } = useAuth();
-
+  
   const navigate = useNavigate()
 
   const registerMutation = useMutation(async (userData) => {
@@ -26,11 +25,16 @@ function RegisterPage() {
     if (!response.ok) {
       throw new Error('Registration failed');
     }
+
+    const responseData = await response.json();
+    return responseData.data;
   }, {
-    onSuccess: () => {
+    onSuccess: (data) => {
+      console.log('User registered:', data);
+      const { id, email, name } = data;
+      setUser({ id, email, name });
+      
       queryClient.invalidateQueries('user');
-      // TODO need to get the user    
-      // setUser(userData);
       navigate('/register-success'); 
     },
   });
@@ -63,7 +67,7 @@ function RegisterPage() {
             <label>Password:</label>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
-          <button type="button" onClick={handleRegister}>Registerx</button>
+          <button type="button" onClick={handleRegister}>Register</button>
         </form>
     </div>
   );
