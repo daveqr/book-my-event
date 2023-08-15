@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
 
 function AppNavbar() {
   const storedUser = JSON.parse(localStorage.getItem('user'));
   const isAuthenticated = storedUser !== null;
-  const [activeMenuItem, setActiveMenuItem] = useState('activeMainMenuItem');
-
+  const [setActiveMenuItem] = useState('activeMainMenuItem');
+  const navigate = useNavigate()
 
   const handleMenuItemClick = (menuItem) => {
       setActiveMenuItem(menuItem);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    navigate('/register-/'); 
   };
 
   return (
@@ -23,7 +29,8 @@ function AppNavbar() {
             <li className="nav-item"><Link className="nav-link" to="/events" onClick={() => handleMenuItemClick('')}>Events</Link></li>
             <li className="nav-item">
               {isAuthenticated ? (
-                <span className="nav-link">{storedUser ? storedUser.name : 'User'}</span>
+                // <span className="nav-link">{storedUser ? storedUser.name : 'User'}</span>
+                <Link className="nav-link" to="/" onClick={() => handleLogout('')}>Logout</Link>
               ) : (
                 <Link className="nav-link" to="/login" onClick={() => handleMenuItemClick('')}>Login</Link>
               )}
