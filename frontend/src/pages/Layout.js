@@ -7,8 +7,7 @@ import '../style.css'
 
 function Layout() {
 
-    const [activeMenuItem] = useState('activeMainMenuItem');
-
+    const [activeMenuItem, setActiveMenuItem] = useState('');
 
     return (
         <div className="App">
@@ -24,7 +23,7 @@ function Layout() {
                 <div id="page-content-wrapper">
 
                     {/* Top navigation*/}
-                    <AppNavbar />
+                    <AppNavbar activeMenuItem={activeMenuItem} setActiveMenuItem={setActiveMenuItem} />
 
                     <Outlet />
                 </div>

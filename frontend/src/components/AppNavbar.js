@@ -1,20 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom'; 
 
-function AppNavbar() {
+function AppNavbar({ activeMenuItem, setActiveMenuItem }) {
   const storedUser = JSON.parse(localStorage.getItem('user'));
   const isAuthenticated = storedUser !== null;
-  const [setActiveMenuItem] = useState('activeMainMenuItem');
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleMenuItemClick = (menuItem) => {
-      setActiveMenuItem(menuItem);
+    setActiveMenuItem(menuItem);
   };
 
   const handleLogout = () => {
     localStorage.removeItem('user');
-    navigate('/register-/'); 
+    navigate('/login'); 
   };
 
   return (
@@ -25,12 +24,15 @@ function AppNavbar() {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ms-auto mt-2 mt-lg-0">
-            <li className="nav-item active"><Link className="nav-link" to="/" onClick={() => handleMenuItemClick('')}>Home</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/events" onClick={() => handleMenuItemClick('')}>Events</Link></li>
+            <li className={`nav-item ${activeMenuItem === '' ? 'active' : ''}`}>
+              <Link className="nav-link" to="/" onClick={() => handleMenuItemClick('')}>Home</Link>
+            </li>
+            <li className={`nav-item ${activeMenuItem === 'events' ? 'active' : ''}`}>
+              <Link className="nav-link" to="/events" onClick={() => handleMenuItemClick('events')}>Events</Link>
+            </li>
             <li className="nav-item">
               {isAuthenticated ? (
-                // <span className="nav-link">{storedUser ? storedUser.name : 'User'}</span>
-                <Link className="nav-link" to="/" onClick={() => handleLogout('')}>Logout</Link>
+                <button className="nav-link" onClick={handleLogout}>Logout</button>
               ) : (
                 <Link className="nav-link" to="/login" onClick={() => handleMenuItemClick('')}>Login</Link>
               )}
@@ -43,20 +45,3 @@ function AppNavbar() {
 }
 
 export default AppNavbar;
-
-
-
-
-{/* <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-<div className="container-fluid">
-
-    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span className="navbar-toggler-icon"></span></button>
-    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul className="navbar-nav ms-auto mt-2 mt-lg-0">
-            <li className="nav-item active"><Link to="/" className="nav-link" onClick={() => handleMenuItemClick('')}>Home</Link></li>
-            <li className="nav-item active"><Link to="/events" className="nav-link" onClick={() => handleMenuItemClick('events')}>Events</Link></li>
-            <li className="nav-item active"><Link to="/login" className="nav-link" onClick={() => handleMenuItemClick('login')}>Login</Link></li>
-        </ul>
-    </div>
-</div>
-</nav> */}
